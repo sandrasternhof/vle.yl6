@@ -124,6 +124,7 @@ let mapAPIKey = "AqLLRE37SJGqIxXEYxezPUa6fF2oCzl3cvG4n05FtFIVBrotBYxchpMYYpwuxBa
 
 let map;
 
+
 function GetMap() {
 
     "use strict";
@@ -132,6 +133,12 @@ function GetMap() {
         58.88680274155801,
         25.556961662157697
     );
+
+
+
+    let infobox = new Microsoft.Maps.Infobox(centerPoint, {
+        visible: false
+    });
 
     map = new Microsoft.Maps.Map("#map", {
         credentials: mapAPIKey,
@@ -148,6 +155,7 @@ function GetMap() {
 
     let utPushpin = new Microsoft.Maps.Pushpin(utPoint, {
         title: 'Tartu Ülikool',
+        description: "Kool"
         //subTitle: 'Hea koht',
         //text: 'UT'
     });
@@ -159,12 +167,39 @@ function GetMap() {
 
     let taltechPushpin = new Microsoft.Maps.Pushpin(taltechPoint, {
         title: 'Taltech',
+        description: "Kool"
         //subTitle: 'Hea koht',
         //text: 'UT'
     });
 
+    utPushpin.metadata = {
+        title: 'Pin Title',
+        description: 'Pin discription'
+    };
+
+    taltechPushpin.metadata = {
+        title: 'Pin Title',
+        description: 'Pin discription'
+    };
+
+    Microsoft.Maps.Events.addHandler(utPushpin, 'click', pushpinClicked)
+    Microsoft.Maps.Events.addHandler(taltechPushpin, 'click', pushpinClicked)
+
     map.entities.push(utPushpin);
     map.entities.push(taltechPushpin);
+
+    function pushpinClicked(e) {
+        //Make sure the infobox has metadata to display.
+        if (e.target.metadata) {
+            //Set the infobox options with the metadata of the pushpin.
+            infobox.setOptions({
+                title: e.target.metadata.title,
+                description: e.target.metadata.description,
+                visible: true
+            });
+        }
+    }
+
 
 }
 

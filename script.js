@@ -50,17 +50,17 @@
     function onSubmitClicked(event) {
         event.preventDefault();
 
-        const eesnimi = document.getElementById("fname").value
-        const perenimi = document.getElementById("lname").value
+        const eesnimi = document.getElementById("fname").value;
+        const perenimi = document.getElementById("lname").value;
 
         if (eesnimi.length === 0) {
-            alert("Palun sisestage eesnimi")
+            alert("Palun sisestage eesnimi");
             eesnimi.focus();
             return;
         }
 
         if (perenimi.length === 0) {
-            alert("Palun sisestage perenimi")
+            alert("Palun sisestage perenimi");
             perenimi.focus();
             return;
         }
@@ -129,25 +129,42 @@ function GetMap() {
     "use strict";
 
     let centerPoint = new Microsoft.Maps.Location(
-        58.38104,
-        26.71992
+        58.88680274155801,
+        25.556961662157697
     );
 
     map = new Microsoft.Maps.Map("#map", {
         credentials: mapAPIKey,
         center: centerPoint,
-        zoom: 14,
+        zoom: 7,
         mapTypeId: Microsoft.Maps.MapTypeId.road,
         disablePanning: true
     });
 
-    let pushpin = new Microsoft.Maps.Pushpin(centerPoint, {
+    let utPoint = new Microsoft.Maps.Location(
+        58.38104,
+        26.71992
+    );
+
+    let utPushpin = new Microsoft.Maps.Pushpin(utPoint, {
         title: 'Tartu Ülikool',
         //subTitle: 'Hea koht',
         //text: 'UT'
     });
 
-    map.entities.push(pushpin);
+    let taltechPoint = new Microsoft.Maps.Location(
+        59.395040230485534,
+        24.67175161377225
+    );
+
+    let taltechPushpin = new Microsoft.Maps.Pushpin(taltechPoint, {
+        title: 'Taltech',
+        //subTitle: 'Hea koht',
+        //text: 'UT'
+    });
+
+    map.entities.push(utPushpin);
+    map.entities.push(taltechPushpin);
 
 }
 

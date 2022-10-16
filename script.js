@@ -135,7 +135,6 @@ function GetMap() {
     );
 
 
-
     let infobox = new Microsoft.Maps.Infobox(centerPoint, {
         visible: false
     });
@@ -156,8 +155,6 @@ function GetMap() {
     let utPushpin = new Microsoft.Maps.Pushpin(utPoint, {
         title: 'Tartu Ülikool',
         description: "Kool"
-        //subTitle: 'Hea koht',
-        //text: 'UT'
     });
 
     let taltechPoint = new Microsoft.Maps.Location(
@@ -168,28 +165,28 @@ function GetMap() {
     let taltechPushpin = new Microsoft.Maps.Pushpin(taltechPoint, {
         title: 'Taltech',
         description: "Kool"
-        //subTitle: 'Hea koht',
-        //text: 'UT'
     });
 
     utPushpin.metadata = {
-        title: 'Pin Title',
-        description: 'Pin discription'
+        title: 'Tartu Ülikool',
+        description: 'Tartu Ülikool asutati aastal 1632.'
     };
 
     taltechPushpin.metadata = {
-        title: 'Pin Title',
-        description: 'Pin discription'
+        title: 'Taltech',
+        description: 'Taltech asutati aastal 1918.'
     };
 
-    Microsoft.Maps.Events.addHandler(utPushpin, 'click', pushpinClicked)
-    Microsoft.Maps.Events.addHandler(taltechPushpin, 'click', pushpinClicked)
+    Microsoft.Maps.Events.addHandler(utPushpin, 'click', pushpinClicked);
+    Microsoft.Maps.Events.addHandler(taltechPushpin, 'click', pushpinClicked);
 
     map.entities.push(utPushpin);
     map.entities.push(taltechPushpin);
+    map.entities.push(infobox);
 
     function pushpinClicked(e) {
         //Make sure the infobox has metadata to display.
+        console.log(e.target.metadata)
         if (e.target.metadata) {
             //Set the infobox options with the metadata of the pushpin.
             infobox.setOptions({
